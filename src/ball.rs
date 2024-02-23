@@ -22,8 +22,14 @@ fn spawn_ball(mut commands: Commands, sprite_assets: Res<SpriteAssets>) {
                 ..Default::default()
             },
             rigid_body: RigidBody::Dynamic,
-            collider: Collider::ball(50.0), // Example radius
-            restitution: Restitution::coefficient(0.7),
+            collider: Collider::ball(15.0), // Example radius
+            restitution: Restitution::coefficient(1.0),
+            gravity_scale: GravityScale(0.0),
+            mass_properties: ColliderMassProperties::Mass(100.0),
+            external_force: ExternalForce::default(),
+            external_impulse: ExternalImpulse::default(),
+            velocity: Velocity::default(),
+            lock_axes: LockedAxes::default(),
         },
         // Add any other components specific to the ball here
     ));
