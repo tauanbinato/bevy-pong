@@ -10,4 +10,6 @@ pub struct StaticObjectBundle {
     pub transform: Transform,
     // GlobalTransform is necessary for Bevy to calculate global positions
     pub global_transform: GlobalTransform,
+    pub restitution: Restitution,
+    pub mass_properties: ColliderMassProperties,
 }

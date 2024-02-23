@@ -18,11 +18,12 @@ pub struct MovingObjectRigidBodyDynamicBundle {
     pub external_impulse: ExternalImpulse,
     pub velocity: Velocity,
     pub lock_axes: LockedAxes,
+    pub damping: Damping,
 }
 
 /// Plugin for handling movement-related systems.
 pub struct MovementPlugin;
 
 impl Plugin for MovementPlugin {
-    fn build(&self, app: &mut App) {}
+    fn build(&self, _app: &mut App) {}
 }

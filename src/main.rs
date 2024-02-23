@@ -4,6 +4,9 @@ use bevy_rapier2d::prelude::*;
 mod asset_loader;
 mod ball;
 mod camera;
+mod collisions;
+mod health;
+mod interactables;
 mod level;
 mod movement;
 mod player;
@@ -14,6 +17,8 @@ mod static_object;
 use asset_loader::AssetLoaderPlugin;
 use ball::BallPlugin;
 use camera::CameraPlugin;
+use collisions::CollisionsPlugin;
+use interactables::InteractablePlugin;
 use level::LevelPlugin;
 use movement::MovementPlugin;
 use player::PlayerPlugin;
@@ -35,6 +40,8 @@ fn main() {
             CameraPlugin,
             BallPlugin,
             LevelPlugin,
+            InteractablePlugin,
+            CollisionsPlugin,
         ))
         .run();
 }
