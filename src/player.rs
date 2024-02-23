@@ -58,6 +58,7 @@ fn spawn_player(
             velocity: Velocity::default(),
             lock_axes: LockedAxes::TRANSLATION_LOCKED_X | LockedAxes::ROTATION_LOCKED,
             damping: Damping::default(),
+            friction: Friction::default(),
         },
         Player { id: 1 },
     ));
@@ -83,6 +84,7 @@ fn spawn_player(
             velocity: Velocity::default(),
             lock_axes: LockedAxes::TRANSLATION_LOCKED_X | LockedAxes::ROTATION_LOCKED,
             damping: Damping::default(),
+            friction: Friction::default(),
         },
         Player { id: 2 },
     ));

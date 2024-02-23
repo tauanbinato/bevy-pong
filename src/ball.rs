@@ -39,14 +39,20 @@ fn spawn_ball(mut commands: Commands, sprite_assets: Res<SpriteAssets>) {
                     combine_rule: CoefficientCombineRule::Average,
                 },
                 gravity_scale: GravityScale(0.0),
-                mass_properties: ColliderMassProperties::Mass(5.0),
-                external_force: ExternalForce::default(), // Use default if no continuous force is needed
+                mass_properties: ColliderMassProperties::MassProperties(MassProperties {
+                    local_center_of_mass: Vec2::new(0.0, 0.0),
+                    mass: 5.0,
+                    ..Default::default()
+                }),
+                // Use default if no continuous force is needed
                 external_impulse: ExternalImpulse {
                     impulse: Vec2::new(5000.0, 1000.0), // Apply initial impulse here
                     torque_impulse: 0.0,
                 },
+                friction: Friction::coefficient(0.0),
+                external_force: ExternalForce::default(),
                 velocity: Velocity::default(),
-                lock_axes: LockedAxes::default(),
+                lock_axes: LockedAxes::empty(),
                 damping: Damping::default(),
             },
             // Add any other components specific to the ball here

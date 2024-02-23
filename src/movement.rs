@@ -19,6 +19,7 @@ pub struct MovingObjectRigidBodyDynamicBundle {
     pub velocity: Velocity,
     pub lock_axes: LockedAxes,
     pub damping: Damping,
+    pub friction: Friction,
 }
 
 /// Plugin for handling movement-related systems.

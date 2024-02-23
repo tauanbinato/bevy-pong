@@ -37,11 +37,12 @@ fn spawn_static_interactables(
 
     commands
         .spawn(StaticObjectBundle {
-            collider: Collider::cuboid(10.0, 10.0),
+            collider: Collider::cuboid(100.0, 100.0),
             transform: Transform::from_xyz(0.0, 0.0, 0.0),
             global_transform: GlobalTransform::default(),
             restitution: Restitution::default(),
             mass_properties: ColliderMassProperties::default(),
+            friction: Friction::default(),
         })
         .insert(Interactable::new(1))
         .insert(Health::new(100.0));

@@ -36,6 +36,7 @@ fn spawn_level_boundaries(mut commands: Commands, windows: Query<&Window>) {
             global_transform: GlobalTransform::default(),
             restitution: Restitution::default(),
             mass_properties: ColliderMassProperties::Mass(500.0),
+            friction: Friction::coefficient(0.0),
         })
         .insert(Wall {
             name: "Top".to_string(),
@@ -49,6 +50,7 @@ fn spawn_level_boundaries(mut commands: Commands, windows: Query<&Window>) {
             global_transform: GlobalTransform::default(),
             restitution: Restitution::default(),
             mass_properties: ColliderMassProperties::Mass(500.0),
+            friction: Friction::coefficient(0.0),
         })
         .insert(Wall {
             name: "Bottom".to_string(),
@@ -62,6 +64,7 @@ fn spawn_level_boundaries(mut commands: Commands, windows: Query<&Window>) {
             global_transform: GlobalTransform::default(),
             restitution: Restitution::default(),
             mass_properties: ColliderMassProperties::Mass(500.0),
+            friction: Friction::coefficient(0.0),
         })
         .insert(Wall {
             name: "Left".to_string(),
@@ -76,6 +79,7 @@ fn spawn_level_boundaries(mut commands: Commands, windows: Query<&Window>) {
             global_transform: GlobalTransform::default(),
             restitution: Restitution::default(),
             mass_properties: ColliderMassProperties::Mass(500.0),
+            friction: Friction::coefficient(0.0),
         })
         .insert(Wall {
             name: "Right".to_string(),

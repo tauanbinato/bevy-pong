@@ -12,4 +12,5 @@ pub struct StaticObjectBundle {
     pub global_transform: GlobalTransform,
     pub restitution: Restitution,
     pub mass_properties: ColliderMassProperties,
+    pub friction: Friction,
 }

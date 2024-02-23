@@ -1,7 +1,9 @@
 use bevy::prelude::*;
 use bevy_rapier2d::prelude::*;
 
-use crate::{ball::Ball, level::Wall, player::Player, schedule::InGameSet};
+use crate::{
+    ball::Ball, interactables::Interactable, level::Wall, player::Player, schedule::InGameSet,
+};
 
 pub struct CollisionsPlugin;
 
@@ -9,8 +11,42 @@ impl Plugin for CollisionsPlugin {
     fn build(&self, app: &mut App) {
         app.add_systems(
             Update,
-            (handle_goal, handle_player_hit).in_set(InGameSet::CollisionDetection),
+            (handle_goal, handle_player_hit, handle_interactables_hit)
+                .in_set(InGameSet::CollisionDetection),
         );
+    }
+}
+
+fn handle_interactables_hit(
+    mut collision_events: EventReader<CollisionEvent>,
+    interactable_query: Query<&Interactable>,
+    ball_query: Query<(&Ball, &mut Velocity)>,
+) {
+    for collision_event in collision_events.read() {
+        match collision_event {
+            CollisionEvent::Started(entity1, entity2, _flags) => {
+                // Check if is a ball-interactable collision
+                let (interactable_entity, _ball_entity) =
+                    if interactable_query.get(*entity1).is_ok() && ball_query.get(*entity2).is_ok()
+                    {
+                        (entity1, entity2)
+                    } else if interactable_query.get(*entity2).is_ok()
+                        && ball_query.get(*entity1).is_ok()
+                    {
+                        (entity2, entity1)
+                    } else {
+                        // Skip this event if it doesn't involve a ball-interactable collision.
+                        continue;
+                    };
+
+                if let Ok(interactable) = interactable_query.get(*interactable_entity) {
+                    info!("Interactable {} was hit by the ball!", interactable.id);
+                }
+            }
+            CollisionEvent::Stopped(_entity1, _entity2, _flags) => {
+                // Handle collision stop event if needed
+            }
+        }
     }
 }
 
@@ -23,7 +59,7 @@ fn handle_player_hit(
     for collision_event in collision_events.read() {
         match collision_event {
             CollisionEvent::Started(entity1, entity2, _flags) => {
-                // Check if either entity is a player, and the other is a ball.
+                // Check if is a ball-player collision
                 let (player_entity, ball_entity) = if player_query.get(*entity1).is_ok()
                     && ball_query.get(*entity2).is_ok()
                 {
@@ -31,7 +67,8 @@ fn handle_player_hit(
                 } else if player_query.get(*entity2).is_ok() && ball_query.get(*entity1).is_ok() {
                     (entity2, entity1)
                 } else {
-                    continue; // Skip this event if it doesn't involve a ball-player collision.
+                    // Skip this event if it doesn't involve a ball-player collision.
+                    continue;
                 };
 
                 if let Ok((_ball, velocity)) = ball_query.get_mut(*ball_entity) {
