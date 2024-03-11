@@ -60,7 +60,7 @@ fn spawn_player(
             damping: Damping::default(),
             friction: Friction::default(),
         },
-        Player { id: 1 },
+        Player::new(1),
     ));
 
     commands.spawn((
